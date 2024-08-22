@@ -1,0 +1,77 @@
+import { useState } from "react";
+import Tiptap from "./TextEditior";
+import { Button } from "./ui/button";
+import { Loader2 } from "lucide-react";
+import makeRequest from "@/utils/makeRequest";
+
+const BlogEditor = () => {
+  const [data, setData] = useState({
+    title: "",
+    content: "",
+    published: false,
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (publish) => {
+    try {
+      const response = await makeRequest(
+        "POST",
+        "http://localhost:5000/api/posts",
+        {
+          ...data,
+          published: publish,
+        },
+        {},
+        setLoading
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.error("Error creating blog post:", error);
+    }
+  };
+
+  const handleContentData = (html) => {
+    setData({ ...data, content: html });
+  };
+  const handleTitleData = (html) => {
+    setData({ ...data, title: html });
+  };
+
+  return (
+    <div className="flex flex-col justify-between gap-5 mx-2 my-10 md:m-10">
+      <div className="flex flex-col gap-5">
+        <div className="border border-gray-300 rounded-md">
+          <Tiptap getHtmlData={handleTitleData} placeholder={"Title"} />
+        </div>
+
+        <div className="border border-gray-300 rounded-md">
+          <Tiptap
+            getHtmlData={handleContentData}
+            placeholder={"Start Typing..."}
+          />
+        </div>
+      </div>
+      <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-5">
+        <Button
+          disabled={loading}
+          variant="destructive"
+          className="w-full md:w-60"
+          onClick={() => handleSubmit(false)}
+        >
+          {loading ? <Loader2 className="h-6 animate-spin" /> : "Save as Draft"}
+        </Button>
+        <Button
+          disabled={loading}
+          variant="outline"
+          className="w-full md:w-60 border-gray-300"
+          onClick={() => handleSubmit(true)}
+        >
+          {loading ? <Loader2 className="h-6 animate-spin" /> : "Upload"}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default BlogEditor;
