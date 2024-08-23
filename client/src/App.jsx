@@ -3,6 +3,9 @@ import Home from "./components/Home";
 import AppLayout from "./layouts/AppLayout";
 import BlogEditor from "./components/BlogEditor";
 import GetBlog from "./components/GetBlog";
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -20,7 +23,12 @@ const router = createBrowserRouter([
         element: <GetBlog />,
       },
       {
-        path: "/auth",
+        path: "/signin",
+        element: <Signin />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       },
       {
         path: "/dashboard",
