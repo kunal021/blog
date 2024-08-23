@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import makeRequest from "@/utils/makeRequest";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context";
 
 const BlogEditor = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ const BlogEditor = () => {
   });
   const [loading, setLoading] = useState(false);
 
+  const { token } = useAuth();
+
   const handleSubmit = async (publish) => {
     try {
       const response = await makeRequest(
@@ -23,7 +26,9 @@ const BlogEditor = () => {
           ...data,
           published: publish,
         },
-        {},
+        {
+          Authorization: `Bearer ${token}`,
+        },
         setLoading
       );
 

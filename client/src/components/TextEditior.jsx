@@ -46,7 +46,7 @@ import {
 import { useEffect, useState } from "react";
 import ImageUpload from "./FileUpload";
 
-const Tiptap = ({ placeholder, getHtmlData }) => {
+const Tiptap = ({ placeholder, getHtmlData, content = "" }) => {
   const [headingOptionOpen, setHeadingOptionOpen] = useState(false);
   const [fontSizeOpen, setFontSizeOpen] = useState(false);
   const [markerOpen, setMarkerOpen] = useState(false);
@@ -79,7 +79,7 @@ const Tiptap = ({ placeholder, getHtmlData }) => {
         class: `prose prose-sm sm:prose lg:prose-lg xl:prose-2xl p-2 focus:outline-none`,
       },
     },
-    content: ``,
+    content: `${content}`,
   });
 
   useEffect(() => {

@@ -5,6 +5,10 @@ import BlogEditor from "./components/BlogEditor";
 import GetBlog from "./components/GetBlog";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
+import Unauthorized from "./components/Unauthorized";
+import RequireAuth from "./components/RequireAuth";
+import { AuthProvider } from "./context";
+import Profile from "./components/Profile";
 
 const router = createBrowserRouter([
   {
@@ -16,11 +20,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <BlogEditor />,
+        element: (
+          <RequireAuth>
+            <BlogEditor />
+          </RequireAuth>
+        ),
       },
       {
         path: "/:id",
         element: <GetBlog />,
+      },
+      {
+        path: "/profile",
+        element: (
+          <RequireAuth>
+            <Profile />
+          </RequireAuth>
+        ),
       },
       {
         path: "/signin",
@@ -31,16 +47,17 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "/dashboard",
+        path: "/unauthorized",
+        element: <Unauthorized />,
       },
     ],
   },
 ]);
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </div>
+    </AuthProvider>
   );
 }
 

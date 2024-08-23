@@ -12,7 +12,6 @@ function GetBlog() {
   const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     const fetchData = async () => {

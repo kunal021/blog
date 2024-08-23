@@ -35,6 +35,7 @@ export const getAllPost = async (req, res) => {
 
     if (!posts || posts.length === 0)
       return res.status(404).json({ error: "Posts not found" });
+
     res.json({
       data: posts,
       meta: {
@@ -61,8 +62,9 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
   try {
+    const author = req.userId;
     const { title, content, published } = req.body;
-    const post = await Post.create({ title, content, published });
+    const post = await Post.create({ title, content, published, author });
     res.status(201).json(post);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -90,6 +92,29 @@ export const deletePost = async (req, res) => {
     const post = await Post.findByIdAndDelete(req.params.id);
     if (!post) return res.status(404).json({ error: "Post not found" });
     res.json({ message: "Post deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const publishPost = async (req, res) => {
+  const { publishStatus } = req.body;
+  try {
+    let post;
+    if (publishStatus === "publish") {
+      post = await Post.findByIdAndUpdate(req.params.id, {
+        published: true,
+      });
+    }
+
+    if (publishStatus === "unpublish") {
+      post = await Post.findByIdAndUpdate(req.params.id, {
+        published: false,
+      });
+    }
+
+    if (!post) return res.status(404).json({ error: "Post not found" });
+    res.json(post);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -4,6 +4,7 @@ import {
   deletePost,
   getAllPost,
   getPost,
+  publishPost,
   updatePost,
 } from "../controllers/post.controller.js";
 import { imageUpload } from "../utils/imageUpload.js";
@@ -19,5 +20,6 @@ router.post("/", requireAuth, validatePost, createPost);
 router.post("/image-upload", requireAuth, upload.single("image"), imageUpload);
 router.put("/:id", requireAuth, validatePost, updatePost);
 router.delete("/:id", requireAuth, deletePost);
+router.put("/publish/:id", requireAuth, publishPost);
 
 export default router;
