@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const ImageUpload = ({ onImageUpload }) => {
   const [loading, setLoading] = useState(false);
+  const [inputKey, setInputKey] = useState(Date.now());
 
   const MAX_SIZE_MB = 5;
   const handleImageUpload = async (e) => {
@@ -31,8 +32,9 @@ const ImageUpload = ({ onImageUpload }) => {
         setLoading
       );
       // console.log("Image upload response:", response.data.url.data.publicUrl);
-      const imageUrl = response.url.data.publicUrl;
+      const imageUrl = response.data.url.data.publicUrl;
       onImageUpload(imageUrl);
+      setInputKey(Date.now());
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -46,6 +48,7 @@ const ImageUpload = ({ onImageUpload }) => {
         <Image className="h-4" />
       )}
       <input
+        key={inputKey}
         type="file"
         accept="image/*"
         onChange={handleImageUpload}

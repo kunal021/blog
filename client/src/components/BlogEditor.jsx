@@ -3,8 +3,10 @@ import Tiptap from "./TextEditior";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import makeRequest from "@/utils/makeRequest";
+import { useNavigate } from "react-router-dom";
 
 const BlogEditor = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     title: "",
     content: "",
@@ -26,6 +28,14 @@ const BlogEditor = () => {
       );
 
       console.log(response);
+      if (response.status === 201) {
+        setData({
+          title: "",
+          content: "",
+          published: false,
+        });
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error creating blog post:", error);
     }
@@ -39,8 +49,12 @@ const BlogEditor = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between gap-5 mx-2 my-10 md:m-10">
-      <div className="flex flex-col gap-5">
+    <div className="flex flex-col min-h-[80vh] justify-between gap-5 mx-2 md:mx-10 mb-5">
+      <div className="flex flex-col gap-10">
+        <h3 className="text-xl font-black sm:text-3xl md:text-4xl text-center text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-100 p-5">
+          Write your stories and ideas here
+        </h3>
+
         <div className="border border-gray-300 rounded-md">
           <Tiptap getHtmlData={handleTitleData} placeholder={"Title"} />
         </div>

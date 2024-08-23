@@ -50,6 +50,7 @@ const Tiptap = ({ placeholder, getHtmlData }) => {
   const [headingOptionOpen, setHeadingOptionOpen] = useState(false);
   const [fontSizeOpen, setFontSizeOpen] = useState(false);
   const [markerOpen, setMarkerOpen] = useState(false);
+  // const [isFocused, setIsFocused] = useState(false);
 
   const editor = useEditor({
     extensions: [
@@ -83,6 +84,17 @@ const Tiptap = ({ placeholder, getHtmlData }) => {
 
   useEffect(() => {
     if (editor) {
+      // const handleFocus = () => setIsFocused(true);
+      // const handleBlur = (event) => {
+      //   // Only hide the toolbar if the blur event is not triggered by clicking on the toolbar
+      //   if (!event.relatedTarget?.closest(".toolbar")) {
+      //     setIsFocused(false);
+      //   }
+      // };
+
+      // editor.on("focus", handleFocus);
+      // editor.on("blur", handleBlur);
+
       const updateContent = () => {
         getHtmlData(editor.getHTML());
       };
@@ -90,6 +102,8 @@ const Tiptap = ({ placeholder, getHtmlData }) => {
       editor.on("update", updateContent);
 
       return () => {
+        // editor.off("focus", handleFocus);
+        // editor.off("blur", handleBlur);
         editor.off("update", updateContent);
       };
     }
@@ -139,7 +153,11 @@ const Tiptap = ({ placeholder, getHtmlData }) => {
 
   return (
     <div className="flex flex-col justify-center items-center h-full w-full">
-      <div className="sticky top-0 bg-gray-50 z-50 flex flex-wrap justify-center items-center gap-2 px-2 py-1 border-b border-b-gray-200 w-full">
+      {/* {isFocused && ( */}
+      <div
+        // onMouseDown={(e) => e.preventDefault()}
+        className="sticky top-0 bg-gray-50 z-50 flex flex-wrap justify-center items-center gap-2 px-2 py-1 border-b border-b-gray-200 w-full"
+      >
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={`p-1 ${editor.isActive("bold") ? "bg-gray-200" : ""}`}
@@ -369,6 +387,7 @@ const Tiptap = ({ placeholder, getHtmlData }) => {
           </div>
         )}
       </div>
+      {/* )} */}
       <div className="w-full">
         <EditorContent editor={editor} className="overflow-y-auto" />
       </div>

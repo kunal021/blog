@@ -32,7 +32,7 @@ async function makeRequest(
     });
 
     // Return the response data
-    return response.data;
+    return response;
   } catch (error) {
     // Handle errors
     console.error("Error making request:", error);

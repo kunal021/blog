@@ -11,7 +11,7 @@ export const getAllPost = async (req, res) => {
       searchFilter = {
         $or: [
           { title: { $regex: searchTerm, $options: "i" } },
-          { content: { $regex: searchTerm, $options: "i" } },
+          // { content: { $regex: searchTerm, $options: "i" } },
         ],
       };
     }
