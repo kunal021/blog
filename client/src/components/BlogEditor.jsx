@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import makeRequest from "@/utils/makeRequest";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context";
+import { toast } from "sonner";
 
 const BlogEditor = () => {
   const navigate = useNavigate();
@@ -32,17 +33,26 @@ const BlogEditor = () => {
         setLoading
       );
 
-      console.log(response);
       if (response.status === 201) {
         setData({
           title: "",
           content: "",
           published: false,
         });
+        toast.success("Blog Post Created Successfully", {
+          action: {
+            label: "Undo",
+          },
+        });
         navigate("/");
       }
     } catch (error) {
       console.error("Error creating blog post:", error);
+      toast.error(error.response?.data?.message || "Error Creating blog post", {
+        action: {
+          label: "Undo",
+        },
+      });
     }
   };
 

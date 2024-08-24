@@ -7,6 +7,7 @@ import makeRequest from "@/utils/makeRequest";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/context";
+import { toast } from "sonner";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -52,6 +53,11 @@ function Signin() {
 
       if (response.status === 200) {
         signin(response.data.user, response.data.token);
+        toast.success("Signed In Successfully", {
+          action: {
+            label: "Undo",
+          },
+        });
         navigate("/");
       }
     } catch (error) {
@@ -64,6 +70,11 @@ function Signin() {
         });
       } else {
         console.error("Unexpected error:", error);
+        toast.error(error.response?.data?.message || "Error signing in", {
+          action: {
+            label: "Undo",
+          },
+        });
       }
     }
   };

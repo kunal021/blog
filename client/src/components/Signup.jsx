@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import makeRequest from "@/utils/makeRequest";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/context";
+import { toast } from "sonner";
 
 const schema = z.object({
   name: z.string().min(1, "Username is required"),
@@ -54,6 +55,11 @@ function Signup() {
       );
 
       if (response.status === 201) {
+        toast.success("Signed Up Successfully", {
+          action: {
+            label: "Undo",
+          },
+        });
         navigate("/signin");
       }
     } catch (error) {
@@ -66,6 +72,11 @@ function Signup() {
         });
       } else {
         console.error("Unexpected error:", error);
+        toast.error(error.response?.data?.message || "Error signing up", {
+          action: {
+            label: "Undo",
+          },
+        });
       }
     }
   };

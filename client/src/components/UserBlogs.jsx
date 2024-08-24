@@ -13,6 +13,7 @@ import { Button } from "./ui/button";
 import { EyeOff, Loader2, ScanEye } from "lucide-react";
 import DeleteAlert from "./DeleteAlert";
 import UpdatePost from "./UpdatePost";
+import { toast } from "sonner";
 
 function UserBlogs() {
   const [posts, setPosts] = useState([]);
@@ -53,10 +54,22 @@ function UserBlogs() {
         null,
         { Authorization: `Bearer ${token}` }
       );
-      console.log(response);
-      setPosts(posts.filter((post) => post._id !== id));
+
+      if (response.status === 200) {
+        setPosts(posts.filter((post) => post._id !== id));
+        toast.success("Post Deleted Successfully", {
+          action: {
+            label: "Undo",
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
+      toast.error(error.response?.data?.message || "Error while deleting", {
+        action: {
+          label: "Undo",
+        },
+      });
     } finally {
       setLoading({ isLoading: false, operation: null });
     }
@@ -76,9 +89,24 @@ function UserBlogs() {
             post._id === id ? { ...post, published: !post.published } : post
           )
         );
+        toast.success(
+          publishStatus === "publish"
+            ? "Post Published Successfully"
+            : "Post Unpublished Successfully",
+          {
+            action: {
+              label: "Undo",
+            },
+          }
+        );
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.response?.data?.message || "Error Publishing Post", {
+        action: {
+          label: "Undo",
+        },
+      });
     } finally {
       setLoading({ isLoading: false, operation: null });
     }
@@ -132,7 +160,7 @@ function UserBlogs() {
                       }
                     />
 
-                    <UpdatePost post={post} />
+                    <UpdatePost post={post} setPosts={setPosts} />
                     {!post.published ? (
                       <Button
                         onClick={() => handlePublish(post._id, "publish")}
