@@ -14,6 +14,7 @@ import { EyeOff, Loader2, ScanEye } from "lucide-react";
 import DeleteAlert from "./DeleteAlert";
 import UpdatePost from "./UpdatePost";
 import { toast } from "sonner";
+import PaginationComp from "./PaginationComp";
 
 function UserBlogs() {
   const [posts, setPosts] = useState([]);
@@ -23,6 +24,8 @@ function UserBlogs() {
     operation: null,
     for: null,
   });
+  const [pageNumber, setPageNumber] = useState(1);
+  const [paginationData, setPaginationData] = useState({});
   const { token } = useAuth();
   useEffect(() => {
     const fetchData = async () => {
@@ -30,11 +33,12 @@ function UserBlogs() {
         setLoading({ isLoading: true, operation: "fetch", for: null });
         const response = await makeRequest(
           "GET",
-          `http://localhost:5000/api/user?search=${searchTerm}`,
+          `http://localhost:5000/api/user?search=${searchTerm}&page=${pageNumber}&limit=10`,
           null,
           { Authorization: `Bearer ${token}` }
         );
         setPosts(response.data.data);
+        setPaginationData(response.data.meta);
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,7 +47,7 @@ function UserBlogs() {
     };
 
     fetchData();
-  }, [searchTerm, token]);
+  }, [pageNumber, searchTerm, token]);
 
   const handleDelete = async (id) => {
     try {
@@ -208,6 +212,11 @@ function UserBlogs() {
               </p>
             </div>
           )}
+          <PaginationComp
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            pagination={paginationData}
+          />
         </div>
       )}
     </div>

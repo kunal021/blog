@@ -83,31 +83,31 @@ function UpdatePost({ post, setPosts }) {
           Update <SquareArrowOutUpRight className="ml-1 h-4 w-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full">
-        <SheetHeader className="w-full">
+      <SheetContent className="w-full overflow-auto">
+        <SheetHeader className="w-full pt-6">
           <SheetTitle className="text-xl font-semibold mb-5">Update</SheetTitle>
-          <div className="flex flex-col gap-4 w-full">
-            <div className="border border-gray-300 rounded-md">
-              <Tiptap content={data.title} getHtmlData={handleTitleData} />
-            </div>
-            <div className="border border-gray-300 rounded-md">
-              <Tiptap content={data.content} getHtmlData={handleContentData} />
-            </div>
-          </div>
         </SheetHeader>
-        <SheetFooter className="flex justify-between items-center gap-3 mt-5">
-          <Button
-            variant="outline"
-            className="w-full border-gray-300"
-            onClick={handleSubmit}
-          >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Update"}
-          </Button>
+        <div className="flex flex-col gap-4 w-full">
+          <div className="border border-gray-300 rounded-md">
+            <Tiptap content={data.title} getHtmlData={handleTitleData} />
+          </div>
+          <div className="border border-gray-300 rounded-md">
+            <Tiptap content={data.content} getHtmlData={handleContentData} />
+          </div>
+        </div>
+        <SheetFooter className="flex justify-between items-center gap-3 mt-5 pb-6">
           <SheetClose ref={sheetCloseRef} asChild>
             <Button variant="destructive" className="w-full">
               CLose
             </Button>
           </SheetClose>
+          <Button
+            variant="outline"
+            className="w-full border-gray-400"
+            onClick={handleSubmit}
+          >
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Update"}
+          </Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>

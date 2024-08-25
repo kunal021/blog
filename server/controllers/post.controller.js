@@ -1,7 +1,7 @@
 import Post from "../schemas/post.schema.js";
 
 export const getAllPost = async (req, res) => {
-  const { page = "", limit = "", search = "" } = req.query;
+  let { page = "", limit = "", search = "" } = req.query;
 
   const searchTerm = search.trim();
   try {

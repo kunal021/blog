@@ -2,7 +2,7 @@ import Post from "../schemas/post.schema.js";
 import User from "../schemas/user.schema.js";
 
 export const getUserPosts = async (req, res) => {
-  const { page = "", limit = "", search = "" } = req.query;
+  let { page = "", limit = "", search = "" } = req.query;
   const userId = req.userId;
   const searchTerm = search.trim();
   try {
