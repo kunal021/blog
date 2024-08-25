@@ -6,7 +6,7 @@ import { useAuth } from "@/context";
 function Navbar() {
   const { token } = useAuth();
   return (
-    <div className="flex justify-between items-center px-8 py-3 bg-white border-b border-b-gray-300">
+    <div className="flex justify-between items-center px-8 py-3 bg-muted border-b border-b-gray-300">
       <Link
         to={"/"}
         className="text-xl font-semibold text-gray-800 md:text-2xl"

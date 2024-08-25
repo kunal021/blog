@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer className="bg-muted py-5 border-t border-t-gray-300">
-      <div className="container mx-auto grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 md:grid-cols-4 md:px-6">
-        <div className="flex flex-col items-start gap-4">
+      <div className="container mx-auto grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 md:grid-cols-4 md:px-6 text-center">
+        <div className="flex flex-col items-center gap-4">
           <Link href="#" className="flex items-center gap-2" prefetch={false}>
             <span className="text-lg font-bold">Blog</span>
           </Link>
