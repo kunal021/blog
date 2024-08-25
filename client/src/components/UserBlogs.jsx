@@ -33,7 +33,7 @@ function UserBlogs() {
         setLoading({ isLoading: true, operation: "fetch", for: null });
         const response = await makeRequest(
           "GET",
-          `http://localhost:5000/api/user?search=${searchTerm}&page=${pageNumber}&limit=10`,
+          `https://blog-lwf2.onrender.com/api/user?search=${searchTerm}&page=${pageNumber}&limit=10`,
           null,
           { Authorization: `Bearer ${token}` }
         );
@@ -54,7 +54,7 @@ function UserBlogs() {
       setLoading({ isLoading: true, operation: "delete", for: id });
       const response = await makeRequest(
         "DELETE",
-        `http://localhost:5000/api/posts/${id}`,
+        `https://blog-lwf2.onrender.com/api/posts/${id}`,
         null,
         { Authorization: `Bearer ${token}` }
       );
@@ -83,7 +83,7 @@ function UserBlogs() {
       setLoading({ isLoading: true, operation: publishStatus, for: id });
       const response = await makeRequest(
         "PUT",
-        `http://localhost:5000/api/posts/publish/${id}`,
+        `https://blog-lwf2.onrender.com/api/posts/publish/${id}`,
         { publishStatus },
         { Authorization: `Bearer ${token}` }
       );

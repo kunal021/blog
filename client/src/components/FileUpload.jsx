@@ -24,7 +24,7 @@ const ImageUpload = ({ onImageUpload }) => {
     try {
       const response = await makeRequest(
         "POST",
-        "http://localhost:5000/api/posts/image-upload",
+        "https://blog-lwf2.onrender.com/api/posts/image-upload",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

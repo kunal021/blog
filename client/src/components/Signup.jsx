@@ -48,7 +48,7 @@ function Signup() {
       schema.parse(data);
       const response = await makeRequest(
         "POST",
-        "http://localhost:5000/api/auth/signup",
+        "https://blog-lwf2.onrender.com/api/auth/signup",
         data,
         {},
         setLoading

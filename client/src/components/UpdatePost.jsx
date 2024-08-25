@@ -38,7 +38,7 @@ function UpdatePost({ post, setPosts }) {
     try {
       const response = await makeRequest(
         "PUT",
-        `http://localhost:5000/api/posts/${post._id}`,
+        `https://blog-lwf2.onrender.com/api/posts/${post._id}`,
         data,
         { Authorization: `Bearer ${token}` },
         setLoading

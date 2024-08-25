@@ -18,7 +18,7 @@ function GetBlog() {
       try {
         const response = await makeRequest(
           "GET",
-          `http://localhost:5000/api/posts/${id}`,
+          `https://blog-lwf2.onrender.com/api/posts/${id}`,
           null,
           {},
           setLoading

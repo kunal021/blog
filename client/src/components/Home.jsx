@@ -21,7 +21,7 @@ function Home() {
       try {
         const response = await makeRequest(
           "GET",
-          `http://localhost:5000/api/posts?search=${searchTerm}&page=${pageNumber}&limit=10`,
+          `https://blog-lwf2.onrender.com/api/posts?search=${searchTerm}&page=${pageNumber}&limit=10`,
           null,
           {},
           setLoading

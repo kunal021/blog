@@ -22,7 +22,7 @@ const BlogEditor = () => {
     try {
       const response = await makeRequest(
         "POST",
-        "http://localhost:5000/api/posts",
+        "https://blog-lwf2.onrender.com/api/posts",
         {
           ...data,
           published: publish,
