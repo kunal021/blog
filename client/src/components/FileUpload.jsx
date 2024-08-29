@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useAuth } from "@/context";
 import makeRequest from "@/utils/makeRequest";
 import { Image, Loader } from "lucide-react";
 import { useState } from "react";
@@ -6,6 +7,8 @@ import { useState } from "react";
 const ImageUpload = ({ onImageUpload }) => {
   const [loading, setLoading] = useState(false);
   const [inputKey, setInputKey] = useState(Date.now());
+
+  const { token } = useAuth();
 
   const MAX_SIZE_MB = 5;
   const handleImageUpload = async (e) => {
@@ -28,6 +31,8 @@ const ImageUpload = ({ onImageUpload }) => {
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
+
+          Authorization: `Bearer ${token}`,
         },
         setLoading
       );
